@@ -14,7 +14,8 @@ class App extends Component {
             return {
                 messages: [...messages, 'Нормально']
             }
-        });
+         }
+      );
    }
   };
 
