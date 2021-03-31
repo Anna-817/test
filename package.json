@@ -1,27 +1,34 @@
 {
-  "name": "geekmessenger",
+  "name": "y",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode development",
-    "server": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open",
+    "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
   },
-  "author": "geek",
+  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.0",
-    "@babel/preset-env": "^7.5.0",
-    "@babel/preset-react": "^7.12.13",
-    "babel-loader": "^8.0.6",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2"
-  },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.13.0"
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@webpack-cli/serve": "^1.3.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.1",
+    "mini-css-extract-plugin": "^1.3.4",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "webpack": "^5.13.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
