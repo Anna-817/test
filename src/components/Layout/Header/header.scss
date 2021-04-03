@@ -1,4 +1,27 @@
 .header{
-    top: 25px;
-    color: wheat;
+    text-align: center;
+    width: 50%;
+    background-color: #fcfcfc;
+    border-radius: 5px;
+    margin: 20px auto;
+    font-family: Arial;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+        display: block;
+        padding-left: 20px;
+        margin-top: 11px;
+    }
+
+    &__profile{
+        color: #000;
+        display: block;
+        margin: 5px 10px 0 0;
+
+        &:hover{
+            color: #999;
+        }
+    }
 }

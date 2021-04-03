@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from "react";
+import React from "react";
+import { Link } from 'react-router-dom';
+import PersonIcon from '@material-ui/icons/Person';
 
 import './header.scss';
 
-export const Header = () => {
+export const Header = ({chatId}) => {
     return (
-        <h1 className="header">
-            Hello React
-        </h1>
+        <div className="header">
+            <span className="header__title">Чат {chatId}</span>
+            <Link to={'/profile/'} className="header__profile"> 
+                <PersonIcon fontSize="large" />
+            </Link>
+        </div>
     );
   };
 
