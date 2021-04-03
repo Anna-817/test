@@ -1,0 +1,12 @@
+.chat-list{
+    width: 30%;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-left: 20px;
+
+    &__title{
+        text-align: center;
+        margin: 20px;
+        font-weight: bold;
+    }
+}
