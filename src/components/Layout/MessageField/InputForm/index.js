@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { TextField, FloatingActionButton } from 'material-ui';
-import SendIcon from 'material-ui/svg-icons/content/send';
+import React, { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
 
 const InputForm = ({addMessage}) => {
     const [label, setLabel] = useState('');
@@ -19,13 +19,15 @@ const InputForm = ({addMessage}) => {
         <form onSubmit={onSubmit} className="message-form">
             <TextField type="input"
                 onChange={onLabelChange}
-                hintText="Введите сообщение"
+                placeholder="Введите сообщение"
                 value={label}
                 fullWidth={ true }
                 style={{ fontSize: '22px' }} />
-            <FloatingActionButton onClick={onSubmit}>
+            <Button onClick={onSubmit}
+                variant="contained"
+                color="default">
                 <SendIcon />
-            </FloatingActionButton>
+            </Button>
         </form>
     );
 };

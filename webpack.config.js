@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "build"),
     filename: "bundle.js",
+    publicPath: "/"
   },
   devtool: 'source-map',
   module: {
@@ -34,4 +35,8 @@ module.exports = {
       chunkFilename: "[id].css",
     }),
   ],
+  devServer: {
+    port: 8080,
+    historyApiFallback: true,
+  },
 };

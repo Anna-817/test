@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import { AUTHORS } from "../../../utils/constants";
 import Message from "./Message";
@@ -6,36 +6,37 @@ import InputForm from "./InputForm";
 
 import "./messageField.scss";
 
-const initalMessages = [{
-        author: 'BOT', 
-        text: "Привет",
-        id: 'key_0'
-    }, {
-        author: 'BOT', 
-        text: "Как дела?",
-        id: 'key_1'
-    }];
-
-const MessageField = () => {
-    const [messages, setMessages] = useState(initalMessages);
+const MessageField = ({
+        chatId,
+        messages,
+        setMessages,
+        chats,
+        setChats
+    }) => {
     const timer = useRef(null);
 
-    const addMessage = (newMessage, author) => {
-        author = author || 'ME';
-        clearTimeout(timer.current);
+    const addMessage = (newMessage, author = 'me') => {
+        if (newMessage.length > 0) {
+            clearTimeout(timer.current);
+            const messageId = Object.keys(messages).length + 1;
 
-        setMessages((prevMess) => [...prevMess, {
-            author: author,
-            text: newMessage,
-            id: `key_${prevMess.length}`
-        }]);
+            setMessages({...messages,
+                [messageId]: {text: newMessage, author: author}
+            });
+
+            setChats({...chats, 
+                [chatId]: { ...chats[chatId],
+                    messageList: [...chats[chatId]['messageList'], messageId]
+                }
+            });
+        }
     };
 
     useEffect(() => {
-        if (messages[messages.length - 1].author === 'ME') {
+        if (Object.values(messages)[Object.values(messages).length - 1].author === 'me') {
             timer.current = setTimeout(() => {
-                addMessage('Не приставай ко мне, я робот!', 'BOT');
-            }, 10000);
+                addMessage('Не приставай ко мне, я робот!', 'bot');
+            }, 1000);
             return () => clearInterval(timer.current);
         }
     }, [messages]);
@@ -43,8 +44,12 @@ const MessageField = () => {
     return (
         <div className="message-block">
             <div className="message-field">
-                {messages.map((mes, i) => (
-                    <Message text={mes.text} id={mes.id} name={AUTHORS[mes.author]} key={mes.id} />
+                {chats[chatId].messageList.map((messageId, index) => (
+                    <Message 
+                        text={messages[messageId].text}
+                        author={messages[messageId].author}
+                        name={AUTHORS[messages[messageId].author]}
+                        key={index} />
                 ))}
             </div>
             <InputForm addMessage={addMessage} />
