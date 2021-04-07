@@ -1,0 +1,17 @@
+.profile{
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: Arial;
+
+    &__title{
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    &__row{
+        margin-bottom: 10px;
+    }
+}
