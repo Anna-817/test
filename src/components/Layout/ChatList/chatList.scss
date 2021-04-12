@@ -25,6 +25,12 @@
     &__item{
         color: #000;
         text-decoration: none;
+        justify-content: space-between !important;
+    }
+
+    &__name{
+        display: flex;
+        cursor: pointer;
 
         &:hover{
             color: #999;
@@ -32,6 +38,14 @@
     }
 
     &__icon{
-        padding-right: 20px;
+        padding-right: 10px;
+    }
+
+    &__del{
+        cursor: pointer;
+
+        &:hover{
+            color: #999;
+        }
     }
 }

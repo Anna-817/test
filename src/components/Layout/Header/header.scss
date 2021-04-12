@@ -6,22 +6,32 @@
     margin: 20px auto;
     font-family: Arial;
     font-size: 20px;
-    display: flex;
-    justify-content: space-between;
+
+    &__inner{
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
 
     &__title {
         display: block;
-        padding-left: 20px;
-        margin-top: 11px;
+        margin-top: 5px;
+        cursor: pointer;
     }
 
     &__profile{
         color: #000;
         display: block;
-        margin: 5px 10px 0 0;
+        margin-top: 0;
+        cursor: pointer;
+        display: flex;
 
         &:hover{
             color: #999;
         }
+    }
+
+    &__name{
+        padding: 5px 10px 0 0;
     }
 }

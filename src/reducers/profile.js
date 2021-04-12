@@ -1,16 +1,16 @@
-const updateProfile = (state, action) => {
-    if (state === undefined) {
-        return {
-            name: 'Иван',
-            surname: 'Иванов',
-            age: 31
-        };
+const initialStore = {
+    profile: {
+        name: 'Иван',
+        surname: 'Иванов',
+        age: 31
     }
-  
+};
+
+const profileReducer = (store = initialStore, action) => {  
     switch (action.type) {
         default:
-            return state.profile;
+            return store;
     }
 };
   
-export default updateProfile;
+export default profileReducer;

@@ -1,18 +1,51 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { push, goBack } from 'connected-react-router';
+import { connect } from 'react-redux';
 import PersonIcon from '@material-ui/icons/Person';
 
 import './header.scss';
 
-export const Header = ({chatId}) => {
+export const Header = ({chatId, profile, push, goBack}) => {
+    const handleNavigate = (link) => {
+        push(link);
+    };
+
+    const handleBack = () => {
+        goBack();
+    };
+
+    const leftLink = () => {
+        if (chatId) {
+            return <span className="header__title">Чат {chatId}</span>;
+        } else {
+            return (
+                <span className="header__title"
+                    onClick={() => handleBack()}>Назад</span>
+            )
+        }
+    }
+
     return (
         <div className="header">
-            <span className="header__title">Чат {chatId}</span>
-            <Link to='/profile/' className="header__profile"> 
-                <PersonIcon fontSize="large" />
-            </Link>
+            <div className="header__inner">
+                <span className="header__title">{ leftLink() }</span>
+                <div className="header__profile"
+                    onClick={() => handleNavigate('/profile/')}>
+                    <span className="header__name">{profile.name}</span>
+                    <PersonIcon fontSize="large" />
+                </div>
+            </div>
         </div>
     );
-  };
+};
 
-  export default Header;
+const mapStateToProps = ({ profileReducer }) => ({
+    profile: profileReducer.profile,
+});
+
+  const mapDispatchToProps = {
+    push,
+    goBack
+};
+    
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

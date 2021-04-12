@@ -28,10 +28,23 @@
     border-radius: 20px;
     font-size: 18px;
     margin: 5px;
+    position: relative;
  }
 
  .message-sender {
     color: gray;
     font-size: 14px;
+
+    &__del{
+        display: block;
+        position: absolute;
+        top: -5px;
+        right: 0;
+        cursor: pointer;
+
+        &:hover{
+            color: #999;
+        }
+    }
  }
  

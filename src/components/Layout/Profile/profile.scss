@@ -3,8 +3,11 @@
     margin: 0 auto;
     background-color: #fff;
     border-radius: 5px;
-    padding: 20px;
     font-family: Arial;
+
+    &__inner{
+        padding: 20px;
+    }
 
     &__title{
         font-weight: bold;
