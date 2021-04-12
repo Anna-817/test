@@ -8,7 +8,7 @@ export const Header = ({chatId}) => {
     return (
         <div className="header">
             <span className="header__title">Чат {chatId}</span>
-            <Link to={'/profile/'} className="header__profile"> 
+            <Link to='/profile/' className="header__profile"> 
                 <PersonIcon fontSize="large" />
             </Link>
         </div>

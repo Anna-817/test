@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import { connect } from 'react-redux';
+import * as actions from '../../../actions';
 
 import { AUTHORS } from "../../../utils/constants";
 import Message from "./Message";
@@ -8,34 +10,28 @@ import "./messageField.scss";
 
 const MessageField = ({
         chatId,
-        messages,
-        setMessages,
         chats,
-        setChats
+        updateChat,
+        messages,
+        addMessage
     }) => {
     const timer = useRef(null);
+    const { messageList } = chats[chatId];
 
-    const addMessage = (newMessage, author = 'me') => {
+    const addMessageHandler = (newMessage, author = 'me') => {
         if (newMessage.length > 0) {
             clearTimeout(timer.current);
             const messageId = Object.keys(messages).length + 1;
 
-            setMessages({...messages,
-                [messageId]: {text: newMessage, author: author}
-            });
-
-            setChats({...chats, 
-                [chatId]: { ...chats[chatId],
-                    messageList: [...chats[chatId]['messageList'], messageId]
-                }
-            });
+            updateChat({id: chatId, messageId});
+            addMessage({id: messageId, text: newMessage, author});
         }
     };
 
     useEffect(() => {
         if (Object.values(messages)[Object.values(messages).length - 1].author === 'me') {
             timer.current = setTimeout(() => {
-                addMessage('Не приставай ко мне, я робот!', 'bot');
+                addMessageHandler('Не приставай ко мне, я робот!', 'bot');
             }, 1000);
             return () => clearInterval(timer.current);
         }
@@ -44,7 +40,7 @@ const MessageField = ({
     return (
         <div className="message-block">
             <div className="message-field">
-                {chats[chatId].messageList.map((messageId, index) => (
+                {messageList.map((messageId, index) => (
                     <Message 
                         text={messages[messageId].text}
                         author={messages[messageId].author}
@@ -52,9 +48,13 @@ const MessageField = ({
                         key={index} />
                 ))}
             </div>
-            <InputForm addMessage={addMessage} />
+            <InputForm addMessage={addMessageHandler} />
         </div>
     );
 };
 
-export default MessageField;
+const mapStateToProps = (state) => {
+    return state;
+};
+  
+export default connect(mapStateToProps, actions)(MessageField);

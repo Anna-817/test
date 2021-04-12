@@ -1,23 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../../actions';
+
 import { List, ListItem } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 
 import AddChat from "./AddChat";
-
 import "./chatList.scss";
 
-export const ChatList = ({chats, setChats}) => {
-    const addChat = () => {
-        const chatId = Object.keys(chats).length + 1;
-
-        setChats({...chats, 
-            [chatId]: { ...chats[chatId],
-                messageList: []
-            }
-        });
-    }
-  
+const ChatList = ({chats, addChat}) => {
     return (
         <div className="chat-list">  
             <div className="chat-list__title">Chat List</div>
@@ -38,6 +30,10 @@ export const ChatList = ({chats, setChats}) => {
             </div>
         </div>
     );
-  };
+};
 
-  export default ChatList;
+const mapStateToProps = (state) => {
+    return state;
+};
+  
+export default connect(mapStateToProps, actions)(ChatList);
