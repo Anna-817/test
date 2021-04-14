@@ -1,25 +1,37 @@
-const initialMessages = {
-    1: { text: "Привет!", author: 'bot' },
-    2: { text: "Здравствуйте!", author: 'bot' },
+import update from 'react-addons-update';
+
+const initialStore = {
+    messages: {
+        1: { text: "Привет!", author: 'bot' },
+        2: { text: "Здравствуйте!", author: 'bot' },
+    }
 };
 
-const updateMessages = (state, action) => {
-    if (state === undefined) {
-        return initialMessages;
-    }
-  
+const messageReducer = (store = initialStore, action) => {
     switch (action.type) {
         case 'ADD_MESSAGE':
-            return {...state.messages, 
-                [action.payload.id]: {
-                    text: action.payload.text,
-                    author: action.payload.author
-                }
-            };
+            return update(store, {
+                messages: { $merge: {
+                    [action.payload.id]: {
+                        text: action.payload.text,
+                        author: action.payload.author,
+                        chatId: action.payload.chatId,
+                } } },
+            });
+        case 'DELETE_MESSAGE':
+            const id = action.payload;
+            const newMessages = {};
+            for (const key in store.messages) {
+                if (key !== id) newMessages[key] = store.messages[key];
+            }
+
+            return update(store, {
+                messages: { $set: newMessages },
+            });
 
         default:
-            return state.messages;
+            return store;
     }
 };
   
-export default updateMessages;
+export default messageReducer;

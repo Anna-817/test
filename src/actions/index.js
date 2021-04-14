@@ -4,9 +4,23 @@ export const addChat = () => {
     };
 };
 
-export const updateChat = (payload) => {
+export const addMessageToChat = (payload) => {
     return {
-        type: 'UPDATE_CHAT',
+        type: 'UPDATE_CHAT_ADD',
+        payload
+    };
+};
+
+export const deleteMessageFromChat = (payload) => {
+    return {
+        type: 'UPDATE_CHAT_DELETE',
+        payload
+    };
+};
+
+export const deleteChat = (payload) => {
+    return {
+        type: 'DELETE_CHAT',
         payload
     };
 };

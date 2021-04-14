@@ -1,13 +1,13 @@
-import updateMessages from './messages';
-import updateChats from './chats';
-import updateProfile from './profile';
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router'
 
-const reducer = (state, action) => {
-    return {
-        messages: updateMessages(state, action),
-        chats: updateChats(state, action),
-        profile: updateProfile(state, action)
-    };
-};
+import messageReducer from './messages';
+import chatReducer from './chats';
+import profileReducer from './profile';
 
-export default reducer;
+export default (history) => combineReducers({
+    router: connectRouter(history),
+    messageReducer,
+    chatReducer,
+    profileReducer,
+});

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 
@@ -11,31 +11,26 @@ import "./messageField.scss";
 const MessageField = ({
         chatId,
         chats,
-        updateChat,
+        addMessageToChat,
+        deleteMessageFromChat,
         messages,
         addMessage
     }) => {
-    const timer = useRef(null);
     const { messageList } = chats[chatId];
 
     const addMessageHandler = (newMessage, author = 'me') => {
         if (newMessage.length > 0) {
-            clearTimeout(timer.current);
             const messageId = Object.keys(messages).length + 1;
 
-            updateChat({id: chatId, messageId});
-            addMessage({id: messageId, text: newMessage, author});
+            addMessageToChat({id: chatId, messageId});
+            addMessage({id: messageId, text: newMessage, author, chatId});
         }
     };
 
-    useEffect(() => {
-        if (Object.values(messages)[Object.values(messages).length - 1].author === 'me') {
-            timer.current = setTimeout(() => {
-                addMessageHandler('Не приставай ко мне, я робот!', 'bot');
-            }, 1000);
-            return () => clearInterval(timer.current);
-        }
-    }, [messages]);
+    const deleteMessageHandler = (e) => {
+        const messageId = e.currentTarget.getAttribute('data-id');
+        deleteMessageFromChat({id: chatId, messageId});
+    }
 
     return (
         <div className="message-block">
@@ -45,7 +40,9 @@ const MessageField = ({
                         text={messages[messageId].text}
                         author={messages[messageId].author}
                         name={AUTHORS[messages[messageId].author]}
-                        key={index} />
+                        id={messageId}
+                        key={messageId}
+                        deleteMessageHandler={deleteMessageHandler} />
                 ))}
             </div>
             <InputForm addMessage={addMessageHandler} />
@@ -53,8 +50,9 @@ const MessageField = ({
     );
 };
 
-const mapStateToProps = (state) => {
-    return state;
-};
+const mapStateToProps = ({ chatReducer, messageReducer }) => ({
+    chats: chatReducer.chats,
+    messages: messageReducer.messages,
+});
   
 export default connect(mapStateToProps, actions)(MessageField);
