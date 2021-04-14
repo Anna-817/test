@@ -1,10 +1,11 @@
 import update from 'react-addons-update';
+import { SUCCESS_MESSAGES_LOADING } from '../actions/messageActions';
 
 const initialStore = {
     chats: {
-        1: {title: 'Чат 1', messageList: [1]},
+        1: {title: 'Чат 1', messageList: []},
         2: {title: 'Чат 2', messageList: [2]},
-        3: {title: 'Чат 3', messageList: []},
+        3: {title: 'Чат 3', messageList: [1]},
         4: {title: 'Чат 4', messageList: []},
     },
     total: 4,
@@ -57,7 +58,18 @@ const chatReducer = (store = initialStore, action) => {
             return update(store, {
                 chats: { $set: newChats },
             });
-  
+        case SUCCESS_MESSAGES_LOADING: {
+            const chats = {...store.chats};
+            const chatId = 1;
+            action.payload.entities.messages.forEach(msg => {
+                const { _id } = msg;
+                chats[chatId].messageList.push(_id);
+            });
+            return update(store, {
+                chats: { $set: chats },
+                isLoading: { $set: false },
+            });
+        }
         default:
             return store;
     }
