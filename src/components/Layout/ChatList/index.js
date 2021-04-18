@@ -22,7 +22,7 @@ const ChatList = ({chats, addChat, deleteChat, push}) => {
     }
 
     return (
-        <div className="chat-list">  
+        <div className="chat-list">
             <div className="chat-list__title">Chat List</div>
             <div>
                 <List className="chat-list__block">

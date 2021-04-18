@@ -18,4 +18,4 @@ export const Layout = ({chatId = 1}) => {
     );
   };
 
-  export default Layout;
+export default Layout;

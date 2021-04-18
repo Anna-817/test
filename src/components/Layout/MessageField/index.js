@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import * as actions from '../../../actions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { addMessageToChat, deleteMessageFromChat, addMessage } from '../../../actions';
+import { loadMessages } from '../../../actions/messageActions';
 import { AUTHORS } from "../../../utils/constants";
 import Message from "./Message";
 import InputForm from "./InputForm";
@@ -14,7 +16,9 @@ const MessageField = ({
         addMessageToChat,
         deleteMessageFromChat,
         messages,
-        addMessage
+        addMessage,
+        loadMessages,
+        isLoading
     }) => {
     const { messageList } = chats[chatId];
 
@@ -32,10 +36,19 @@ const MessageField = ({
         deleteMessageFromChat({id: chatId, messageId});
     }
 
+    useEffect(() => {
+        loadMessages();
+    }, []);
+
+    if (isLoading) {
+        return <CircularProgress />
+    }
+
     return (
         <div className="message-block">
             <div className="message-field">
-                {messageList.map((messageId, index) => (
+                {isLoading && <CircularProgress />}
+                {!isLoading && messageList.map((messageId) => (
                     <Message 
                         text={messages[messageId].text}
                         author={messages[messageId].author}
@@ -53,6 +66,14 @@ const MessageField = ({
 const mapStateToProps = ({ chatReducer, messageReducer }) => ({
     chats: chatReducer.chats,
     messages: messageReducer.messages,
+    isLoading: messageReducer.isLoading,
 });
+
+const mapDispatchToProps = {
+    addMessageToChat,
+    deleteMessageFromChat,
+    addMessage,
+    loadMessages,
+}
   
-export default connect(mapStateToProps, actions)(MessageField);
+export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
