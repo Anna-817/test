@@ -25,7 +25,7 @@ export const loadMessages = () => ({
             {
                 type: SUCCESS_MESSAGES_LOADING,
                 payload: (action, state, res) => getJSON(res).then(
-                   json =>  normalize(json, [messages]),
+                   json => json//normalize(json, [messages]),
                 ),
             },
             ERROR_MESSAGES_LOADING,

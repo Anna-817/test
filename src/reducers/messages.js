@@ -43,8 +43,7 @@ const messageReducer = (store = initialStore, action) => {
         case SUCCESS_MESSAGES_LOADING: {
             const messages = {};
             const author = 'bot';
-            console.log(action.payload)
-            action.payload.entities.messages.forEach(msg => {
+            action.payload.forEach(msg => {
                 const { text, _id } = msg;
                 messages[_id] = { text, author, chatId: 1 };
             });

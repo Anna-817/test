@@ -61,7 +61,7 @@ const chatReducer = (store = initialStore, action) => {
         case SUCCESS_MESSAGES_LOADING: {
             const chats = {...store.chats};
             const chatId = 1;
-            action.payload.entities.messages.forEach(msg => {
+            action.payload.forEach(msg => {
                 const { _id } = msg;
                 chats[chatId].messageList.push(_id);
             });
